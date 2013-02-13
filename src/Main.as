@@ -4,6 +4,8 @@ package
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	
 	/**
 	 * ...
@@ -55,15 +57,16 @@ package
 			myFractalBitmapData.setPixel( xp , yp , 0x000000 );
 			//
 		}
-		
-		private function init(e:Event = null):void 
+		private function zoom(aEventObj:TimerEvent):void
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			// entry point
-			//Setup the bitmap, and fill it with black
-			myFractalBitmapData = new BitmapData(WTH, HTH, false, 0x000000);
-			myFractalBitmap = new Bitmap(myFractalBitmapData);
-			addChild(myFractalBitmap);
+			left += (xCenter - left) / 16;
+			right += (xCenter - right) / 16;
+			bot += (yCenter - bot) / 16;
+			top += (yCenter - top) / 16;
+			
+			xstepping = (right - left) / WTH;
+			ystepping = (top - bot) / HTH;
+			
 			//Generate the actual fractal
 			for (var x:int = 0; x < WTH; x++)
 			{
@@ -74,6 +77,19 @@ package
 			}
 		}
 		
+		private function init(e:Event = null):void 
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			// entry point
+			//Setup the bitmap, and fill it with black
+			myFractalBitmapData = new BitmapData(WTH, HTH, false, 0x000000);
+			myFractalBitmap = new Bitmap(myFractalBitmapData);
+			addChild(myFractalBitmap);
+			timer = new Timer(20);
+			timer.addEventListener(TimerEvent.TIMER, zoom);
+			timer.start();
+		}
+		
 		private var myFractalBitmap:Bitmap;
 		private var myFractalBitmapData:BitmapData;
 		private var left:Number = -2; //Real axis min
@@ -82,6 +98,10 @@ package
 		private var top:Number = 1; //Imaginary axis max
 		private var xstepping:Number = ( right - left ) / WTH;
 		private var ystepping:Number = ( top - bot ) / HTH;
+		private var xCenter:Number = -1.5;
+		private var yCenter:Number = 0;
+		
+		private var timer:Timer;
 		
 		//Vars for storing the temporary cords
 		private var zr:Number;
