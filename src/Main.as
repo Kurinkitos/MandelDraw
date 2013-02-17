@@ -98,8 +98,8 @@ package
 		private var top:Number = 1; //Imaginary axis max
 		private var xstepping:Number = ( right - left ) / WTH;
 		private var ystepping:Number = ( top - bot ) / HTH;
-		private var xCenter:Number = -1.5;
-		private var yCenter:Number = 0;
+		private var xCenter:Number = -0.743643887037151;
+		private var yCenter:Number = 0.131825904205330;
 		
 		private var timer:Timer;
 		
