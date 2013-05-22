@@ -34,10 +34,10 @@ package
 			for ( var a:int = 0 ; a < MAX_ITTERATIONS ; ++a )
 
 			{
-				//
+				// Do the fractal math
 				zi = zr * zi * 2 + ci;
 				zr = zrsq - zisq + cr;
-				//
+				// Save the squered numbers, so we don't have to do the opperation again
 				zrsq = zr * zr;
 				zisq = zi * zi;
 				//
@@ -45,7 +45,7 @@ package
 				{
 
 					//
-					var color:Number = a << 16 | (a + 50) << 8 | a ;
+					var color:Number = a << 16 | a << 8 | a ;
 					myFractalBitmapData.setPixel( xp , yp , color );
 					return;
 					//
@@ -113,7 +113,7 @@ package
 		
 		private const WTH:int = 700; //Bitmap width
 		private const HTH:int = 500; //Bitmap Height
-		private const MAX_ITTERATIONS:int = 128; //Maximum numbers of cycels before bailout
+		private const MAX_ITTERATIONS:int = 256; //Maximum numbers of cycels before bailout
 		
 	}
 	
