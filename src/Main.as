@@ -85,7 +85,7 @@ package
 			myFractalBitmapData = new BitmapData(WTH, HTH, false, 0x000000);
 			myFractalBitmap = new Bitmap(myFractalBitmapData);
 			addChild(myFractalBitmap);
-			timer = new Timer(20);
+			timer = new Timer(1000);
 			timer.addEventListener(TimerEvent.TIMER, zoom);
 			timer.start();
 		}
